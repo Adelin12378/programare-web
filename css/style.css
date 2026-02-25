@@ -1,0 +1,28 @@
+* {
+    
+    box-sizing: border-box;
+    margin: 10;
+    padding: 2;
+    font-family: Bitcount Grid Double, Verdana, Geneva, Tahoma, sans-serif;
+    max-width: 80%;
+
+}
+
+:root {
+    --primary-color: #41b8c5;
+    --secondary-color: #41d4ad;
+    background-color: #e25f5f;
+    --text-color: #5c3983;
+}
+
+.img {
+    border-radius: 50%;
+    width: 500px;
+    height: 390px;
+    box-shadow: #4e0b0b 0px 10px 20px -10px;
+}
+
+.list {
+    list-style: none;
+    display: inline-block;
+}
