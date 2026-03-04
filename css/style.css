@@ -4,7 +4,7 @@
     margin: 10;
     padding: 2;
     font-family: Bitcount Grid Double, Verdana, Geneva, Tahoma, sans-serif;
-    max-width: 80%;
+    max-width: 100%;
 
 }
 
@@ -17,7 +17,7 @@
 
 .img {
     border-radius: 50%;
-    width: 500px;
+    width: 400px;
     height: 390px;
     box-shadow: #4e0b0b 0px 10px 20px -10px;
 }
