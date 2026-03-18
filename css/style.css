@@ -5,14 +5,17 @@
     padding: 2;
     font-family: Bitcount Grid Double, Verdana, Geneva, Tahoma, sans-serif;
     max-width: 100%;
+    color : var(--text-color);
+    transition: all 0.6s ease;
+
 
 }
 
 :root {
-    --primary-color: #41b8c5;
-    --secondary-color: #41d4ad;
-    background-color: #e25f5f;
-    --text-color: #5c3983;
+    --primary-color: #DDAED3;
+    --secondary-color: #F9F6C4;
+    --background-color: #FE9EC7;
+    --text-color: #44ACFF;
 }
 
 .img {
@@ -25,4 +28,39 @@
 .list {
     list-style: none;
     display: inline-block;
+}
+
+body.dark-mode {
+    --background-color: #213C51;
+    --text-color: #DDAED3;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.hidden {
+    display: none;
+}
+
+#backToTop {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: none;
+    
+    background-color: var(--primary-color);
+    color: white;
+
+    transition: opacity 0.3s ease;
+}
+
+#backToTop:hover {
+    opacity: 0.8;
 }

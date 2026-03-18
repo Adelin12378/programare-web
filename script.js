@@ -42,3 +42,57 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 });
+
+const darkBtn = document.getElementById("darkModeToggle");
+
+darkBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        darkBtn.textContent = "☀️ Light Mode";
+    } else {
+        darkBtn.textContent = "🌙 Dark Mode";
+    }
+});
+
+const headings = document.querySelectorAll("main h3");
+
+headings.forEach(function(h3) {
+    h3.style.cursor = "pointer";
+
+    h3.textContent = "▼ " + h3.textContent;
+
+    h3.addEventListener("click", function() {
+        let next = this.nextElementSibling;
+        let isHidden = false;
+
+        while (next && next.tagName !== "H3") {
+            next.classList.toggle("hidden");
+            isHidden = next.classList.contains("hidden");
+            next = next.nextElementSibling;
+        }
+
+        if (isHidden) {
+            this.textContent = this.textContent.replace("▼", "▶");
+        } else {
+            this.textContent = this.textContent.replace("▶", "▼");
+        }
+    });
+});
+
+const backToTopBtn = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        backToTopBtn.style.display = "block";
+    } else {
+        backToTopBtn.style.display = "none";
+    }
+});
+
+backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
