@@ -12,35 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         greeting_text.textContent = "Good Evening";
     }
-
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const greseli = [];
-    const name = document.getElementById('name').value;
-    if (!(name.includes(' '))) {
-        greseli.push("Name must contain at least a first name and a last name.");
-    }
-    const email = document.getElementById('email').value;
-    if (!email.includes('@') || !email.includes('.')) {
-        greseli.push("Please enter a valid email address.");
-    }
-    const message = document.getElementById('message').value;
-    if (message.length < 10) {
-        greseli.push("Message must contain at least 10 characters.");
-    }
-
-    const feedback_text = document.getElementById("form-feedback");
-    if (greseli.length === 0) {
-        feedback_text.textContent = "Thank you for your message, we will get back to you as soon as possible!";
-        feedback_text.style.color = "green";
-    } else {
-        greseli.forEach(element => {
-            feedback_text.innerText += element + "\n";
-        });
-        feedback_text.style.color = "blue";
-    }
-});
 });
 
 const darkBtn = document.getElementById("darkModeToggle");
@@ -66,7 +37,7 @@ headings.forEach(function(h3) {
         let isHidden = false;
 
         while (next && next.tagName !== "H3") {
-            next.classList.add("collapsible"); // ensure animation class
+            next.classList.add("collapsible");
 
             next.classList.toggle("hidden");
             isHidden = next.classList.contains("hidden");
@@ -99,21 +70,99 @@ backToTopBtn.addEventListener("click", () => {
     });
 });
 
-const cursorDot = document.querySelector(".cursor-dot");
-const cursorOutline = document.querySelector(".cursor-outline");
+document.addEventListener("mousemove", (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
 
-window.addEventListener("mousemove", (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
+    const dot = document.querySelector(".cursor-dot");
+    dot.style.left = x + "px";
+    dot.style.top = y + "px";
 
-    cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
-    
-    cursorOutline.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+    const outline = document.querySelector(".cursor-outline");
+    outline.style.left = x + "px";
+    outline.style.top = y + "px";
+
+    document.body.style.setProperty('--mouse-x', x + "px");
+    document.body.style.setProperty('--mouse-y', y + "px");
 });
 
-const interactables = document.querySelectorAll("a, button, #darkModeToggle, h3, .flip-card");
+const links = document.querySelectorAll("a, button, .flip-card, #darkModeToggle, h3");
+links.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+        document.querySelector(".cursor-outline").classList.add("cursor-active");
+    });
+    link.addEventListener("mouseleave", () => {
+        document.querySelector(".cursor-outline").classList.remove("cursor-active");
+    });
+});
 
-interactables.forEach(el => {
-    el.addEventListener("mouseenter", () => cursorOutline.classList.add("cursor-hover"));
-    el.addEventListener("mouseleave", () => cursorOutline.classList.remove("cursor-hover"));
+const form = document.querySelector('form');
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const greseli = [];
+    
+    const name = document.getElementById('name').value;
+    if (!(name.includes(' '))) {
+        greseli.push("Name must contain at least a first name and a last name.");
+    }
+    const email = document.getElementById('email').value;
+    if (!email.includes('@') || !email.includes('.')) {
+        greseli.push("Please enter a valid email address.");
+    }
+    const message = document.getElementById('message').value;
+    if (message.length < 10) {
+        greseli.push("Message must contain at least 10 characters.");
+    }
+
+    const feedback_text = document.getElementById("form-feedback");
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    if (greseli.length === 0) {
+      
+        submitBtn.innerHTML = "<span>✓</span> Sent!";
+        submitBtn.classList.add("success-btn");
+        
+        form.classList.add("form-success");
+        
+        feedback_text.textContent = "Message sent successfully!";
+        feedback_text.style.color = "#2ecc71";
+        
+        setTimeout(() => {
+            form.classList.remove("form-success");
+            submitBtn.classList.remove("success-btn");
+            submitBtn.innerHTML = "Submit";
+            form.reset();
+        }, 3000);
+
+    } else {
+        feedback_text.innerText = "";
+        greseli.forEach(element => {
+            feedback_text.innerText += element + "\n";
+        });
+        feedback_text.style.color = "#ff4757";
+    }
+});
+
+const flipCard = document.querySelector(".flip-card");
+const cardImages = flipCard.querySelectorAll("img");
+
+flipCard.addEventListener("mousemove", (e) => {
+    const rect = flipCard.getBoundingClientRect();
+    
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    const moveX = x * -20; 
+    const moveY = y * -20;
+
+    cardImages.forEach(img => {
+        img.style.transform = `scale(1.1) translate(${moveX}px, ${moveY}px)`;
+    });
+});
+
+flipCard.addEventListener("mouseleave", () => {
+    cardImages.forEach(img => {
+        img.style.transform = `scale(1.1) translate(0, 0)`;
+    });
 });
