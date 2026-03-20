@@ -59,7 +59,6 @@ const headings = document.querySelectorAll("main h3");
 
 headings.forEach(function(h3) {
     h3.style.cursor = "pointer";
-
     h3.textContent = "▼ " + h3.textContent;
 
     h3.addEventListener("click", function() {
@@ -67,8 +66,11 @@ headings.forEach(function(h3) {
         let isHidden = false;
 
         while (next && next.tagName !== "H3") {
+            next.classList.add("collapsible"); // ensure animation class
+
             next.classList.toggle("hidden");
             isHidden = next.classList.contains("hidden");
+
             next = next.nextElementSibling;
         }
 
@@ -95,4 +97,23 @@ backToTopBtn.addEventListener("click", () => {
         top: 0,
         behavior: "smooth"
     });
+});
+
+const cursorDot = document.querySelector(".cursor-dot");
+const cursorOutline = document.querySelector(".cursor-outline");
+
+window.addEventListener("mousemove", (e) => {
+    const posX = e.clientX;
+    const posY = e.clientY;
+
+    cursorDot.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+    
+    cursorOutline.style.transform = `translate3d(${posX}px, ${posY}px, 0) translate(-50%, -50%)`;
+});
+
+const interactables = document.querySelectorAll("a, button, #darkModeToggle, h3, .flip-card");
+
+interactables.forEach(el => {
+    el.addEventListener("mouseenter", () => cursorOutline.classList.add("cursor-hover"));
+    el.addEventListener("mouseleave", () => cursorOutline.classList.remove("cursor-hover"));
 });
