@@ -127,7 +127,7 @@ body.dark-mode::before {
     width: 100%;
     height: 100%;
     background: radial-gradient(
-        circle 250px at var(--mouse-x, 0) var(--mouse-y, 0), 
+        circle 150px at var(--mouse-x, 0) var(--mouse-y, 0), 
         rgba(221, 174, 211, 0.15), 
         transparent 80%
     );
@@ -183,7 +183,7 @@ footer form {
 }
 
 .form-success {
-    transform: scale(1.01);
+    transform: scale(1.20);
     border-color: #2ecc71;
 }
 
