@@ -1,3 +1,5 @@
+import Card from './Card';
+
 function App() {
  return (
  <div>
@@ -5,10 +7,11 @@ function App() {
  <p>Adelin Buletin</p>
  <h2>Make my funk the chronic i want to get funked up</h2>
  <ul>
- <li>Funkadelic</li>
- <li>Parliament</li>
- <li>George Clinton</li>
+    <li>Funkadelic</li>
+    <li>Parliament</li>
+    <li>George Clinton</li>
  </ul>
+ <Card />
  </div>
  );
 }
